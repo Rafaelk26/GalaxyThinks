@@ -1,0 +1,6 @@
+/* Min 1024px */
+@media screen and (min-width: 64em) {
+    .header-logo{
+        max-width: min-content;
+    }
+}
