@@ -1,5 +1,5 @@
 // Imports from development;
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FormEvent, useState } from 'react';
 
 // Components;
@@ -16,9 +16,28 @@ export function Login(){
     const [pass, setPass] = useState("");
     const [isCheck, setIsCheck] = useState(false);
 
+    const nav = useNavigate()
+
     function handleSubmit(e:FormEvent){
         e.preventDefault();
-        alert('envio ao back-end...')
+
+        if(user === '' || pass === ''){
+            alert('Há campos pendentes!');
+            setUser("")
+            setPass("")
+            return;
+        }
+        const dataInput = {
+            userData: user,
+            passData: pass
+        }
+        console.log(dataInput);
+
+        setUser("")
+        setPass("")
+        
+        nav('/main')
+
     }
 
     function isCheckButton(){
@@ -47,7 +66,7 @@ export function Login(){
                         <div className="flex flex-col items-start relative">
                             <Input
                                 nLabel='Password' 
-                                type={isCheck == true ? 'text':'password'}
+                                type={isCheck === true ? 'text':'password'}
                                 classLabel='mb-1 text-white font-light' 
                                 className='text-white border w-full p-2 rounded-lg pr-10'
                                 onChange={(e) => setPass(e.target.value)}
